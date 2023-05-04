@@ -2,21 +2,26 @@ import * as THREE from 'three';
 import WebGL from 'three/addons/capabilities/WebGL.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// sets up the scene & camera
+// npm install --save three
+// npm install --save-dev vite
+// npx vite in console to run
+
+// Sets up the scene and camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.rotateX(-.75);
 
-// renders window
+// Renders the window
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0xC0C0C0, 0.5);
 document.body.appendChild( renderer.domElement );
 
-// adds lighting to the scene
-const light = new THREE.AmbientLight( 0xD0D0D0 );
+// Adds lighting to the scene
+const light = new THREE.DirectionalLight(0xffffff, 2.5);
 scene.add( light );
 
-// loads in the gltf model
+// Loads in the GLTF model and adds it to the scene
 var chunk;
 const loader = new GLTFLoader();
 
@@ -32,7 +37,7 @@ loader.load( '/tc_gltf.gltf', function ( gltf ) {
 
 } );
 
-//animates the scene
+// Animates the GLTF model in the scene
 if ( WebGL.isWebGLAvailable() ) {
 
 	function animate() {
